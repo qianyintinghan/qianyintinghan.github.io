@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<section id="banner">
+    <div class="inner">
+        <h2>{{ page.title }}</h2>
+        <p>{{ page.excerpt }}</p>
+        <!--p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p-->
+    </div>
+</section>
+<div class="wrapper style1">
+    <article class="container">
+        <section class="post-content">
+            {{ content }}
+        </section>
+    </article>
+</div>

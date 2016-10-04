@@ -5,10 +5,10 @@
             <div class="6u">
                 <div class="row collapse-at-2">
                     <div class="6u">
-                        <h3>Accumsan</h3>
+                        <h3>友链君~</h3>
                         <ul class="alt">
-                            <li><a href="#">Nascetur nunc varius</a></li>
-                            <li><a href="#">Vis faucibus sed tempor</a></li>
+                            <li><a href="http://zhangone.top" target="_blank">Gengxin的小站</a></li>
+                            <li><a href="http://www.luogu.org" target="_blank">Luogu 洛谷</a></li>
                             <li><a href="#">Massa amet lobortis vel</a></li>
                             <li><a href="#">Nascetur nunc varius</a></li>
                         </ul>
@@ -25,14 +25,16 @@
                 </div>
             </div>
             <div class="6u">
-                <h2>Aliquam Interdum</h2>
-                <p>Blandit nunc tempor lobortis nunc non. Mi accumsan. Justo aliquet massa adipiscing cubilia eu accumsan id. Arcu accumsan faucibus vis ultricies adipiscing ornare ut. Mi accumsan justo aliquet.</p>
+                <h2>浅隐听寒</h2>
+                <p>这里是浅隐听寒的介绍</p>
                 <ul class="icons">
-                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                    <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+                    {% if site.twitter %}<li><a href="https://twitter.com/{{ site.twitter }}" target="_blank" rel="noopener noreferrer" class="icon fa-twitter"><span class="label">Twitter</span></a></li>{% endif %}
+                    {% if site.facebook %}<li><a href="http://facebook.com/{{ site.facebook }}" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>{% endif %}
+                    {% if site.instagram %}<li><a href="http://instagram.com/{{ site.instagram }}" target="_blank" rel="noopener noreferrer" class="icon fa-instagram"><span class="label">Instagram</span></a></li>{% endif %}
+                    {% if site.linkedin %}<li><a href="http://linkedin.com/in/{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>{% endif %}
+                    {% if site.pinterest %}<li><a href="http://www.pinterest.com/{{ site.pinterest }}" target="_blank" rel="noopener noreferrer" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>{% endif %}
+                    {% if site.bilibili %}<li><a href="http://www.pinterest.com/{{ site.pinterest }}" target="_blank" rel="noopener noreferrer" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>{% endif %}
+                    {% if site.zhihu %}<li><a href="http://www.pinterest.com/{{ site.pinterest }}" target="_blank" rel="noopener noreferrer" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>{% endif %}
                 </ul>
             </div>
         </div>
