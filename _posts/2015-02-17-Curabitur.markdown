@@ -8,13 +8,13 @@ title: "python制作标签云"
 制作标签云其实就是将文本文件中词频过大（词语出现次数过多）的单词提取出来并以大小的不同显示出来。一般的标签云制作过程是：读取文本、分析词频、筛选词语、按词频生成大小、随机排列、碰撞检测这几个过程。  
 
 读取文本不用多说，分析词频就是将该词语在文本中出现的次数统计出来并进行排序。
-                        file_name = args[0]                           
-                        if opt.topK is None:       
-                           topK = 10    
-                        else:    
+                        file_name = args[0]                             
+                        if opt.topK is None:         
+                           topK = 10      
+                        else:      
                            topK = int(opt.topK)                                        
-                      content = open(file_name, 'rb').read()                              
-                      tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=True)    
+                       content = open(file_name, 'rb').read()                              
+                       tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=True)    
 
 
 
