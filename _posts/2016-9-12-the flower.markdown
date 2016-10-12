@@ -2,7 +2,8 @@
 layout: post  
 title: 尘落轩辕  
 ---
-writien by 浅隐听寒；powered by 水木君；  
+writien by 浅隐听寒；友情鸣谢 水木君；  
+版权归作者所有。  
   
 引：爱在远方，落花徜徉。心之所向，便是天堂。  
 
