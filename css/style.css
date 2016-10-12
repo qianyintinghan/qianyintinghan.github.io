@@ -1093,3 +1093,7 @@
 		#footer .icons a {
 			color: #bbb;
 		}
+		.post-image img{
+			max-width:100%;
+			max-height:100%
+		}
