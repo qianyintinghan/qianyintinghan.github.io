@@ -1,6 +1,6 @@
 --------------
-layout： post  
-title： 尘落轩辕  
+layout: post  
+title: 尘落轩辕  
 --------------
 writien by 浅隐听寒；powered by 水木君；  
   
