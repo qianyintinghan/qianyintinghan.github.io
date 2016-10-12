@@ -1,7 +1,7 @@
----------
-layout： post
-title： 尘落轩辕
--------
+--------------
+layout： post  
+title： 尘落轩辕  
+--------------
 writien by 浅隐听寒；powered by 水木君；  
   
 引：爱在远方，落花徜徉。心之所向，便是天堂。  
