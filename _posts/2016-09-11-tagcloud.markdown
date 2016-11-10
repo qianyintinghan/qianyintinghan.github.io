@@ -44,13 +44,8 @@ tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=withWeight)
 接着就是生成词云了，在这里我选择了用word_cloud 生成词云。通过和老师的交流以及查阅资料，我得知有两个方法可以生成：from text 和 from frequencies 。如果是只处理英文文档的话，就可以直接使用第一个方法，而不需要提前预处理文本，但由于我要做的是中文文本，所以我们必须自己分词，并处理为数组，所以使用第二种方法。
 这里我先去github上查阅了官方的代码：
 ```python
-#!/usr/bin/env python
-"""
-Minimal Example
-===============
-Generating a square wordcloud from the US constitution using default arguments.
-"""
 
+#!/usr/bin/env python
 from os import path
 from wordcloud import WordCloud
 
@@ -78,6 +73,7 @@ plt.show()
 # The pil way (if you don't have matplotlib)
 #image = wordcloud.to_image()
 #image.show()
+
 ```
 做出来大概是这个效果：
 ![](http://images2015.cnblogs.com/blog/848995/201611/848995-20161110200658811-1863253370.jpg)
