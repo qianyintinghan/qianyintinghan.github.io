@@ -5,19 +5,162 @@ title: python制作标签云
 ![](http://images2015.cnblogs.com/blog/848995/201610/848995-20161011100544305-1934061440.png)
 在去年，我很荣幸参加了全国青少年人才培养计划“英才计划”的计算机方面的培训。在经过了导师的介绍下，我选择了数据可视化这个方面，并且尝试自己制作了标签云。  
 标签云是一套相关的标签以及与此相应的权重。典型的标签云有30至150个标签。权重影响使用的字体大小或其他视觉效果。同时，直方图或饼图表是最常用的代表约12种不同的权数。因此，标签云彩能代表更多的权，尽管不那么准确。此外，标签云通常是可以交互的：标签是典型的超链接，让用户可以仔细了解他们的内容。——摘自百度百科  
-制作标签云其实就是将文本文件中词频过大（词语出现次数过多）的单词提取出来并以大小的不同显示出来。一般的标签云制作过程是：读取文本、分析词频、筛选词语、按词频生成大小、随机排列、碰撞检测这几个过程。  
+制作标签云其实就是将文本文件中词频过大（词语出现次数过多）的单词提取出来并以大小的不同显示出来。一般的标签云制作过程是：读取文本、分析词频、筛选词语、按词频生成大小、随机排列、碰撞检测这几个过程。 
 
-读取文本不用多说，分析词频就是将该词语在文本中出现的次数统计出来并进行排序。   
+在读取文本方面，我考虑到文本大小问题，所以使用了简单的读入方式，导致读入文本时速度会有些慢，但整体效果很出彩。
+
+然后是分词和提取关键词，这里我在经过思考后选用了python自带的jieba，因为是初学者，所以选择了 jieba 自带的提取关键词并给出权重的功能。jieba的分词效果很出色，不逊于手写的代码，加上它自带的统计词频功能，使得代码一下子简洁许多。在这里我和导师以及这方面的程序员讨论过一番，没有采用标准过程——分词以后统计词频，生成 k-v 的 Python 字典然后交由 pytagcloud 生成词云——而是在jieba基础上完成了对于分词、提取关键词、统计词频的一系列操作。   
 
 ```python
-file_name = args[0]                             
-if opt.topK is None:         
-    topK = 10      
-else:      
-    topK = int(opt.topK)                                        
+import sys
+sys.path.append('../')
+
+import jieba
+import jieba.analyse
+from optparse import OptionParser
+
+st = OptionParser(USAGE)
+st.add_option("-k", dest="K")
+st.add_option("-w", dest="withWeight")
+opt, args = st.parse_args()
+
+file_name = args[0]
+
+if opt.K is None:
+    K = 10
+else:
+    K = int(opt.K)
+if opt.withWeight is None:
+    withWeight = False
+else:
+    if int(opt.withWeight) is 1:
+        withWeight = True
+    else:
+        withWeight = False
+
+tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=withWeight)
+```
+
+接着就是生成词云了，在这里我选择了用word_cloud 生成词云。通过和老师的交流以及查阅资料，我得知有两个方法可以生成：from text 和 from frequencies 。如果是只处理英文文档的话，就可以直接使用第一个方法，而不需要提前预处理文本，但由于我要做的是中文文本，所以我们必须自己分词，并处理为数组，所以使用第二种方法。
+这里我先去github上查阅了官方的代码：
+```python
+#!/usr/bin/env python
+"""
+Minimal Example
+===============
+Generating a square wordcloud from the US constitution using default arguments.
+"""
+
+from os import path
+from wordcloud import WordCloud
+
+d = path.dirname(__file__)
+
+# Read the whole text.
+text = open(path.join(d, 'constitution.txt')).read()
+
+# Generate a word cloud image
+wordcloud = WordCloud().generate(text)
+
+# Display the generated image:
+# the matplotlib way:
+import matplotlib.pyplot as plt
+plt.imshow(wordcloud)
+plt.axis("off")
+
+# lower max_font_size
+wordcloud = WordCloud(max_font_size=40).generate(text)
+plt.figure()
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.show()
+
+# The pil way (if you don't have matplotlib)
+#image = wordcloud.to_image()
+#image.show()
+```
+做出来大概是这个效果：
+![](http://images2015.cnblogs.com/blog/848995/201611/848995-20161110200658811-1863253370.jpg)
+可见这样做出来的标签云已经有了一些感觉，空隙空间也充分利用起来了。我经过几番调整后发现有一些词会有细小的地方重叠，那么下面就是碰撞检测了。这里由于碰撞检测比较复杂，所以我直接借用了github上的碰撞检测，完成了对标签云的初步处理。
+
+虽然做好了，但是我感觉并没有美感，毕竟一个个方方正正，没有一种赏心悦目的效果，所以我开始调整标签云的外观。首先是进行图片加工。这里我阅读了一下知乎上面的做法：根据文档说明，遮罩图片的白色部分将被视作透明，只在非白色部分区域作图。于是我找到一张黑白素材图来进行处理。
+将黑色部分作为空间来摆放词语。然后又调整了一下标签颜色，让它不那么花花绿绿的看着有些恶俗。最后成果如下：
+
+```python
+# -*- coding: UTF-8 -*-
+import sys  
+from os import path
+import jieba  
+import jieba.analyse  
+from PIL import Image
+import numpy as np
+from optparse import OptionParser  
+import matplotlib.pyplot as plt
+import random
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+USAGE = "usage:    python extract_tags.py [file name] -k [top k]"  
+d = path.dirname(__file__)
+parser = OptionParser(USAGE)  
+parser.add_option("-k", dest="topK")  
+opt, args = parser.parse_args()  
+
+def grey(word, font_size, position, orientation, random_state=None, **kwargs):
+        return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+
+    	
+if len(args) < 1:  
+    print USAGE
+    sys.exit(1) 
+
+file_name = args[0]                          
+if opt.topK is None:  
+    topK = 10  
+else:  
+    topK = int(opt.topK)                                     
 content = open(file_name, 'rb').read()                              
-tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=True)    
+tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=True)
+
+words = []
+
+for tag in tags:
+    words.append( (tag[0].encode("gbk"),tag[1]*1000))
+
+wordcloud = WordCloud(scale = 15).fit_words(words)
+alice_coloring = np.array(Image.open("cloud.jpg"))
+
+wc = WordCloud(background_color="black",max_words=2000, mask=alice_coloring,
+        #stopwords = STOPWORDS.add("said"),
+        max_font_size = 70,
+        random_state = 43,
+        prefer_horizontal = 0.7,
+        #font_path = "方正喵呜体.ttf",
+        scale = 15)
+ 
+wc.fit_words(words)
+
+image_colors = ImageColorGenerator(alice_coloring)
+#plt.imshow(wc.recolor(color_func=image_colors))
+#plt.axis("off")
+#plt.figure()
+#plt.imshow(wordcloud)
+#plt.axis("off")
+'''
+plt.figure()
+plt.imshow(alice_coloring,cmap=plt.cm.gray)
+plt.axis("off")
+'''
+#plt.show()
+wc.recolor(color_func=grey).to_image().save("3.jpg")
+wordcloud.to_image().save("4.jpg")
 
 ```
 
+最后效果如下图：
+![](http://images2015.cnblogs.com/blog/848995/201611/848995-20161110202305436-1345012782.jpg)
+![](http://images2015.cnblogs.com/blog/848995/201611/848995-20161110202329108-1679631443.jpg)
 
+总结：
+通过这次英才计划培训，我学习到了许多有用的知识，对我今后的生活和学习都起到了很大作用。虽然学习一门新的语言过程很艰难，但是完成项目后的喜悦着实令人陶醉。通过这次学习，我明白了如何制作标签云，更懂得了开发项目时所需要的坚持和意志。也非常感谢导师对我的帮助，在我制作项目的时候给了我很大的鼓励。
+
+李庚辰
+2016、11、10 于山东大学软件园校区
