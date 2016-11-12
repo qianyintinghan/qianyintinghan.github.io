@@ -44,7 +44,6 @@ tags = jieba.analyse.extract_tags(content, topK=topK, withWeight=withWeight)
 接着就是生成词云了，在这里我选择了用word_cloud 生成词云。通过和老师的交流以及查阅资料，我得知有两个方法可以生成：from text 和 from frequencies 。如果是只处理英文文档的话，就可以直接使用第一个方法，而不需要提前预处理文本，但由于我要做的是中文文本，所以我们必须自己分词，并处理为数组，所以使用第二种方法。
 这里我先去github上查阅了官方的代码：
 ```python
-
 #!/usr/bin/env python
 from os import path
 from wordcloud import WordCloud
@@ -73,14 +72,15 @@ plt.show()
 # The pil way (if you don't have matplotlib)
 #image = wordcloud.to_image()
 #image.show()
-
 ```
+
 做出来大概是这个效果：
 ![](http://images2015.cnblogs.com/blog/848995/201611/848995-20161110200658811-1863253370.jpg)
 可见这样做出来的标签云已经有了一些感觉，空隙空间也充分利用起来了。我经过几番调整后发现有一些词会有细小的地方重叠，那么下面就是碰撞检测了。这里由于碰撞检测比较复杂，所以我直接借用了github上的碰撞检测，完成了对标签云的初步处理。
 
 虽然做好了，但是我感觉并没有美感，毕竟一个个方方正正，没有一种赏心悦目的效果，所以我开始调整标签云的外观。首先是进行图片加工。这里我阅读了一下知乎上面的做法：根据文档说明，遮罩图片的白色部分将被视作透明，只在非白色部分区域作图。于是我找到一张黑白素材图来进行处理。
 将黑色部分作为空间来摆放词语。然后又调整了一下标签颜色，让它不那么花花绿绿的看着有些恶俗。最后成果如下：
+
 
 ```python
 # -*- coding: UTF-8 -*-
@@ -148,8 +148,8 @@ plt.axis("off")
 #plt.show()
 wc.recolor(color_func=grey).to_image().save("3.jpg")
 wordcloud.to_image().save("4.jpg")
-
 ```
+
 
 最后效果如下图：
 ![](http://images2015.cnblogs.com/blog/848995/201611/848995-20161110202305436-1345012782.jpg)
