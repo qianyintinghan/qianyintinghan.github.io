@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Gengxin's First Test"
+title: "First Test"
 tag:
 - test
 comments: true
-image: "http://images2015.cnblogs.com/blog/831801/201609/831801-20160902151408902-293626532.jpg"
+image: "http://images2015.cnblogs.com/blog/848995/201610/848995-20161011095310399-317425144.png"
 ---
 
-<img src="http://images2015.cnblogs.com/blog/831801/201609/831801-20160902151408902-293626532.jpg" class="fit image">
+<img src="http://images2015.cnblogs.com/blog/848995/201610/848995-20161011095310399-317425144.png" class="fit image">
 
 <button class="btn shake shake-slow"> Test </button>
 
