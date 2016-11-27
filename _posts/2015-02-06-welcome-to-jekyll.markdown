@@ -5,7 +5,7 @@ date:   2016-11-27
 categories: qianyintinghan
 ---
 
-![](http://images2015.cnblogs.com/blog/848995/201610/848995-20161011095259430-674727506.jpg)  
+![](http://images2015.cnblogs.com/blog/848995/201610/848995-20161011095259430-674727506.jpg =480*)  
 
 先有鸡还是先有蛋  
 风中何处才有答案  
