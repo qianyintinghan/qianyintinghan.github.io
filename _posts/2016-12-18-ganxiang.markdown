@@ -1,9 +1,12 @@
 ---
-layout: post  
+layout: post
 title: 成长路上，再次回首，英才相伴
+tag:
+- test
+comments: true
 ---
 
-
+<img src="http://images2015.cnblogs.com/blog/848995/201611/848995-20161110202305436-1345012782.jpg" width="25%" height="25%" />
 
    成长路上，再次回首，英才相伴  
 			山东省济南市历城二中    李庚辰  
